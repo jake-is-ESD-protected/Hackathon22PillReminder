@@ -2,10 +2,16 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "timer.h"
+#include "avr/sleep.h"
 
 ISR(RTC_PIT_vect) {
     // routine goes here
-    led.toggle();
+    tim.increment();
+    if(tim.getCurVal() == tim.getThresh())
+    {
+      led.toggle();
+      tim.reset();
+    }
     RTC.PITINTFLAGS = 1; // reset interrupt
 }
 

@@ -22,8 +22,39 @@ void c_timer::init(uint32_t ms_interval)
   //3. Select the period for the interrupt and enable the PIT by writing the desired value to the PERIOD bit
   //field and a '1' to the PIT Enable bit (PITEN) in the PIT Control A register (RTC.PITCTRLA).
   while (1 & RTC.STATUS); //check if register isn't busy
-  RTC.PITCTRLA = 0x31; //This should set the clock to trigger an interrupt every 128 clock cycles (The clock frequency is 32768Hz, so every 1/256 seconds)
+  RTC.PITCTRLA = (CLOCK_PERIOD << 3) | 1; //This should set the clock to trigger an interrupt every 128 clock cycles (The clock frequency is 32768Hz, so every 1/256 seconds)
+  
   return;
+}
+
+uint32_t c_timer::getCurVal()
+{
+  return cur_val;
+}
+
+void c_timer::increment()
+{
+  cur_val++;
+}
+
+void c_timer::reset()
+{
+  cur_val = 0;
+}
+
+void c_timer::disable()
+{
+  RTC.PITCTRLA &= 0;
+}
+
+void c_timer::setThresh(uint32_t tresh)
+{
+  tresh = tresh;
+}
+
+uint32_t c_timer::getThresh()
+{
+  return tresh;
 }
 
 // singleton:
