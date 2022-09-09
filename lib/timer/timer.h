@@ -4,8 +4,8 @@
 #include "Arduino.h"
 #include "led.h"
 
-#define CLOCK_PERIOD    0xD
-#define DAY             1 //(60 * 60 * 24)
+#define CLOCK_PERIOD    0xE
+#define DAY             60 * 60 //(60 * 60 * 24)
 
 class c_timer
 {

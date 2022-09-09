@@ -2,7 +2,7 @@
 #define _LED_H_
 #include "Arduino.h"
 
-#define LED_PIN LED_BUILTIN
+#define LED_PIN 7
 
 class c_led
 {

@@ -12,12 +12,13 @@ void c_timer::init(uint32_t ms_interval)
   
   //To operate the PIT, follow these steps:
   //1. Configure the RTC clock CLK_RTC as described in   Configure the Clock CLK_RTC.
-  RTC.CLKSEL = 0x00; //Use OSCULP32K oscillator
+  RTC.CLKSEL = RTC_CLKSEL_INT32K_gc; //Use OSCULP32K 1kHz oscillator
+  
     
   //2. Enable the interrupt by writing a '1' to the Periodic Interrupt bit (PI) in the PIT Interrupt Control
   //register (RTC.PITINTCTRL).
   while (1 & RTC.PITSTATUS); //check if register isn't busy
-  RTC.PITINTCTRL = 0x01; //Enable interrupts
+  RTC.PITINTCTRL = RTC_PI_bm; //Enable interrupts
   
   //3. Select the period for the interrupt and enable the PIT by writing the desired value to the PERIOD bit
   //field and a '1' to the PIT Enable bit (PITEN) in the PIT Control A register (RTC.PITCTRLA).
